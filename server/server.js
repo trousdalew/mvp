@@ -16,7 +16,7 @@ app.use(express.static(__dirname + '/../client/dist'));
 app.get('/search/user/:username', (req, res) => {
   console.log('Searching for user: ', req.params.username);
   tweetHelper.fetchTweets('from:' + req.params.username).then((result) => {
-      var tweets = [];
+      let tweets = [];
       result.data.statuses.forEach((tweet) => {
           if (tweet.text.substring(0, 2) !== 'RT') {
             tweets.push(tweet.text);
@@ -31,11 +31,11 @@ app.get('/search/user/:username', (req, res) => {
 
 app.get('/search/tag/:hashtag', (req, res) => {
     console.log('Searching for tag: ', req.params.hashtag);
-    tweetHelper.fetchTweets('#' + req.params.hashtag).then((result) => {
-        var tweets = [];
+    tweetHelper.fetchTweets('%23' + req.params.hashtag).then((result) => {
+        let tweets = [];
         result.data.statuses.forEach((tweet) => {
             if (tweet.text.substring(0, 2) !== 'RT') {
-              tweets.push(tweet.text);
+                tweets.push(tweet.text);
             }
         });
         res.send(tweets);
