@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const tweetHelper = require('./api_helpers/tweetHelper.js');
 let app = express();
 
 let port = 3013;
@@ -14,7 +15,18 @@ app.use(express.static(__dirname + '/../client/dist'));
 
 app.get('/search/user/:username', (req, res) => {
   console.log('Searching for user: ', req.params.username);
-  res.send(req.params.username);
+  tweetHelper.fetchTweets('from:' + req.params.username).then((result) => {
+      var tweets = [];
+      result.data.statuses.forEach((tweet) => {
+          if (tweet.text.substring(0, 2) !== 'RT') {
+            tweets.push(tweet.text);
+          }
+      });
+      res.send(tweets);
+  }).catch((err) => {
+      console.log('Error fetching tweets: ', err);
+      res.status(500).end();
+  });
 });
 
 app.get('/search/tag/:hashtag', (req, res) => {
