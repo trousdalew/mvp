@@ -3,6 +3,7 @@ import ReactDom from 'react-dom';
 import Storage from './components/storage.jsx';
 import Profile from './components/profile.jsx';
 import Search from './components/search.jsx';
+const axios = require('axios');
 
 class App extends React.Component {
   constructor(props) {
@@ -14,6 +15,15 @@ class App extends React.Component {
 
   handleSearch(term) {
       console.log('Searching for: ', term);
+      let endpoint = 'user/' + term.substring(1);
+      if (term.charAt(0) === '#') {
+          endpoint = 'tag/' + term.substring(1);
+      }
+      axios.get('http://localhost:3013/search/' + endpoint).then((result) => {
+          console.log('Retrieved: ', result);
+      }).catch((err) => {
+        console.log('Error searching: ', err);
+      });
   }
 
   render() {
