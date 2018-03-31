@@ -24,12 +24,23 @@ app.get('/search/user/:username', (req, res) => {
       });
       res.send(tweets);
   }).catch((err) => {
-      console.log('Error fetching tweets: ', err);
+      console.log('Error fetching user tweets: ', err);
       res.status(500).end();
   });
 });
 
 app.get('/search/tag/:hashtag', (req, res) => {
-  console.log('Searching for tag: ', req.params.hashtag);
-  res.send(req.params.hashtag);
+    console.log('Searching for tag: ', req.params.hashtag);
+    tweetHelper.fetchTweets('#' + req.params.hashtag).then((result) => {
+        var tweets = [];
+        result.data.statuses.forEach((tweet) => {
+            if (tweet.text.substring(0, 2) !== 'RT') {
+              tweets.push(tweet.text);
+            }
+        });
+        res.send(tweets);
+    }).catch((err) => {
+        console.log('Error fetching user tweets: ', err);
+        res.status(500).end();
+    });
 });

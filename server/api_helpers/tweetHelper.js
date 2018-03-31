@@ -6,8 +6,6 @@ let Promise = require('bluebird');
 let searchurl = 'https://api.twitter.com/1.1/search/tweets.json';
 let authurl = 'https://api.twitter.com/oauth2/token';
 let count = '100';
-let auth =  { token_type: 'bearer',
-access_token: 'AAAAAAAAAAAAAAAAAAAAAKYl5QAAAAAAnBMexj7wmI998oOm0jRBQYYUHnI%3D5p2xq9fTRtScCQmWeH6meAHyTFmq8sBp0aSNR9Q1nAPtCkN4pP' };
 
 let getAuth = () => {
     let key = encodeURI(config.key);
