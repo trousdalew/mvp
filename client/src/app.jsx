@@ -13,13 +13,7 @@ class App extends React.Component {
   }
 
   handleSearch(term) {
-      if (term.charAt(0) === '@') {
-
-      } else if (term.charAt(0) === '#') {
-
-      } else {
-          console.log('Error - search term must be a tag or a user: ', term);
-      }
+      console.log('Searching for: ', term);
   }
 
   render() {
