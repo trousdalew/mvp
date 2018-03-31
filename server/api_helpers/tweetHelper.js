@@ -21,7 +21,6 @@ let getAuth = () => {
         }
     };
     axios.post(authurl, 'grant_type=client_credentials', headers).then((result) => {
-      console.log('Authorization: ', result.data);
       auth = result.data;
     }).catch((err) => {
       console.log('Error acquiring authorization: ', err);
@@ -35,7 +34,7 @@ let fetchTweets = (term) => {
 
   let headers = {
       headers: {
-          Authorization: `Bearer ${auth.access_token}`,
+          Authorization: `Bearer ${config.auth.access_token}`,
           'User-Agent': 'Profiler455434',
           Host: 'api.twitter.com'
       }

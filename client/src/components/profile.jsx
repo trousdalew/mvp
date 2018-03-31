@@ -6,8 +6,12 @@ class Profile extends React.Component {
     }
 
     render() {
+
+      let body = <p>Search for a user or tag to get started.</p>;
         
-        let body = <p>Search for a user or tag to get started.</p>;
+      if (this.props.selected) {
+        let body = <p>this.props.selected</p>;
+      }
 
       return (
         <div class="profile">

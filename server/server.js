@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const tweetHelper = require('./api_helpers/tweetHelper.js');
+const sentiment = require('./api_helpers/sentimentHelper.js');
 let app = express();
 
 let port = 3013;
@@ -16,13 +17,17 @@ app.use(express.static(__dirname + '/../client/dist'));
 app.get('/search/user/:username', (req, res) => {
   console.log('Searching for user: ', req.params.username);
   tweetHelper.fetchTweets('from:' + req.params.username).then((result) => {
-      let tweets = [];
+      let tweets = {
+          contentItems: []
+      };
       result.data.statuses.forEach((tweet) => {
           if (tweet.text.substring(0, 2) !== 'RT') {
-            tweets.push(tweet.text);
+            tweets.contentItems.push(JSON.stringify({
+                content: tweet.text
+            }));
           }
       });
-      res.send(tweets);
+      sentiment.analyze(tweets, res);
   }).catch((err) => {
       console.log('Error fetching user tweets: ', err);
       res.status(500).end();

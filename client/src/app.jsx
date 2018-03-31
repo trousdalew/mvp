@@ -20,7 +20,17 @@ class App extends React.Component {
           endpoint = 'tag/' + term.substring(1);
       }
       axios.get('http://localhost:3013/search/' + endpoint).then((result) => {
-          console.log('Retrieved: ', result);
+          console.log('Received: ', result.data);
+          this.setState({
+            selected: {
+                name: term,
+                wordCount: result.data.word_count,
+                personality: result.data.personality,
+                values: result.data.values,
+                needs: result.data.needs
+            }
+          });
+          console.log('New state: ', this.state.selected);
       }).catch((err) => {
         console.log('Error searching: ', err);
       });
