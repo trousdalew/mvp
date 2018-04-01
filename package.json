@@ -5,7 +5,10 @@
     "express": "^4.16.3",
     "js-base64": "^2.4.3",
     "react": "^16.3.0",
+    "react-d3-radar": "^0.2.6",
     "react-dom": "^16.3.0",
+    "svg-radar-chart": "^0.2.0",
+    "virtual-dom-stringify": "^3.0.1",
     "watson-developer-cloud": "^3.2.1"
   },
   "devDependencies": {

@@ -37,13 +37,17 @@ app.get('/search/user/:username', (req, res) => {
 app.get('/search/tag/:hashtag', (req, res) => {
     console.log('Searching for tag: ', req.params.hashtag);
     tweetHelper.fetchTweets('%23' + req.params.hashtag).then((result) => {
-        let tweets = [];
+        let tweets = {
+            contentItems: []
+        };
         result.data.statuses.forEach((tweet) => {
             if (tweet.text.substring(0, 2) !== 'RT') {
-                tweets.push(tweet.text);
+              tweets.contentItems.push(JSON.stringify({
+                  content: tweet.text
+              }));
             }
         });
-        res.send(tweets);
+        sentiment.analyze(tweets, res);
     }).catch((err) => {
         console.log('Error fetching user tweets: ', err);
         res.status(500).end();
