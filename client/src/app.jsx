@@ -19,7 +19,7 @@ class App extends React.Component {
       if (term.charAt(0) === '#') {
           endpoint = 'tag/' + term.substring(1);
       }
-      axios.get('http://localhost:80/search/' + endpoint).then((result) => {
+      axios.get('http://localhost:3013/search/' + endpoint).then((result) => {
           console.log('Received: ', result.data);
           this.setState({
             selected: {
