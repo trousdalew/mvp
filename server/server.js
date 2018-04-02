@@ -4,7 +4,7 @@ const tweetHelper = require('./api_helpers/tweetHelper.js');
 const sentiment = require('./api_helpers/sentimentHelper.js');
 let app = express();
 
-let port = 3013;
+let port = 80;
 
 app.listen(port, () => {
     console.log('Listening on port: ', port);
